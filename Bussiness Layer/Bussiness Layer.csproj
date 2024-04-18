@@ -20,4 +20,9 @@
     </PackageReference>
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\Data Layer\Data Layer.csproj" />
+    <ProjectReference Include="..\View Layer\View Layer.csproj" />
+  </ItemGroup>
+
 </Project>
