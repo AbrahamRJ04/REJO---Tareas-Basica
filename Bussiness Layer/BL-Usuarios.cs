@@ -58,11 +58,12 @@ namespace Bussiness_Layer
             {
                 using (Data_Layer.Models.TaskProyectContext context = new Data_Layer.Models.TaskProyectContext())
                 {
-                    var query = context.Usuarios.FromSqlRaw($"Usuario_GetById").AsEnumerable().FirstOrDefault();
+                    var query = context.Usuarios.FromSqlRaw($"Usuario_GetById {IdUsuario}").AsEnumerable().FirstOrDefault();
                     if (query != null)
                     {
                         Model_Layer.Usuario user = new Model_Layer.Usuario();
 
+                        user.IdUsuario = query.IdUsuario;
                         user.Nombres = query.Nombres;
                         user.Apellidos = query.Apellido;
                         user.NumeroEmpleado = (int)query.NumeroEmpleado;
