@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.EntityFrameworkCore.Migrations.Operations;
+using System;
 using System.Collections.Generic;
 
 namespace Data_Layer.Models;
@@ -12,6 +13,12 @@ public partial class Tarea
     public string? Descripcion { get; set; }
 
     public int? IdUsuario { get; set; }
+
+    public string NombreEstatos { get; set; } /*Add*/
+
+    public string Nombres { get; set; } /*Add*/
+
+    public string Apellido { get; set; } /*Add*/
 
     public virtual CatEstatus? IdEstatusNavigation { get; set; }
 
