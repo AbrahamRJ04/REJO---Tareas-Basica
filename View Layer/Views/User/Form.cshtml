@@ -1,0 +1,163 @@
+﻿@model Model_Layer.Usuario
+<h1>Formulario Usuario</h1>
+
+<div class="row">
+
+    <div class="container">
+        <div class="col-md-12">
+            <h2>Usuario</h2>
+            <h5>Ingrese los datos del Usuario:</h5>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-12">
+            @*Crea un salto de linea*@
+            <hr />
+        </div>
+    </div>
+    <br />
+    <div class="row">
+        <div class="col-md-12">
+
+            @using (Html.BeginForm("Form", "User", FormMethod.Post, new { enctype = "multipart/form-data" }))
+            {
+                <div style="visibility:collapse; display:none;">
+                    <div class="col-md-4 col-12 col-sm-6">
+                        @Html.LabelFor(model => model.IdUsuario)
+                        @Html.TextBoxFor(model => model.IdUsuario, new { @class = "form-control", @id = "txtIdUsuario" })
+                        @Html.ValidationMessageFor(model => model.IdUsuario)
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-3">
+                        @Html.LabelFor(model => model.Nombres) @Html.ValidationMessageFor(model => model.Nombres, "", new { @class = "text-danger" })
+                        <div class="input-group mb-3">
+                            <span class="input-group-text"><i class="bi bi-file-person" style="color: darkgreen"></i></span>
+                            @Html.TextBoxFor(model => model.Nombres, new { @class = "form-control", @id = "txtNombre", @onkeypress = "return SoloLetras(event, 'lblNombre')" })
+                            @Html.Label("", null, new { @id = "lblNombre" })
+                        </div>
+
+                    </div>
+
+                    <div class="col-md-3">
+                        @Html.LabelFor(model => model.Apellidos) @Html.ValidationMessageFor(model => model.Apellidos, "", new { @class = "text-danger" })
+                        <div class="input-group mb-3">
+                            <span class="input-group-text"><i class="bi bi-file-person" style="color: darkgreen"></i></span>
+                            @Html.TextBoxFor(model => model.Apellidos, new { @class = "form-control", @id = "txtApellidos", @onkeypress = "return SoloLetras(event, 'lblApellidos')" })
+                            @Html.Label("", null, new { @id = "lblApellidos" })
+                        </div>
+
+                    </div>
+
+                    <div class="col-md-3">
+                        @Html.LabelFor(model => model.NumeroEmpleado) @Html.ValidationMessageFor(model => model.NumeroEmpleado, "", new { @class = "text-danger" })
+                        <div class="input-group mb-3">
+                            <span class="input-group-text"><i class="bi bi-file-person" style="color: darkgreen"></i></span>
+                            @Html.TextBoxFor(model => model.NumeroEmpleado, new { @class = "form-control", @id = "txtNumeroEmpleado", @onkeypress = "return SoloNumeros(event, 'lblNumeroEmpleado')" })
+                            @Html.Label("", null, new { @id = "lblNumeroEmpleado" })
+                        </div>
+
+                    </div>
+
+                </div>
+
+                <div class="row">
+                    <div class="col-md-3">
+                        @Html.LabelFor(model => model.Contraseña)
+                        <div class="input-group mb-3">
+                            <span class="input-group-text"><i class="bi bi-key-fill" style="color: darkgreen"></i></span>
+                            @Html.TextBoxFor(model => model.Contraseña, new { @class = "form-control", @id = "txtPassword", @type = "password", placeholder = "Contraseña" })
+                            @Html.ValidationMessageFor(model => model.Contraseña, "", new { @class = "text-danger" })
+                        </div>
+                        @Html.Label("Confirmar Contraseña: ")
+                        <div class="input-group mb-3">
+                            <span class="input-group-text"><i class="bi bi-key-fill" style="color: darkgreen"></i></span>
+                            @Html.TextBox("Confirmar contraseña", null, new { @class = "form-control", @id = "txtPasswordConfirmar", @type = "Password", placeholder = " Confirmar Password", @style = "border-color : darkgreen" })
+                        </div>
+                        @Html.Label("", null, new { @id = "ldlPassword" })
+
+                    </div>
+                </div>
+
+                <div class="col-md-3">
+                    <hr />
+                    <input type="submit" value="Guardar" class="btn btn-outline-success btn-lg" />
+                    @Html.ActionLink("Regresar", "GetAll", "User", htmlAttributes: new { @class = "btn btn-outline-danger btn-lg" })
+                    <hr />
+                </div>
+            }
+        </div>
+    </div>
+
+</div>
+
+@section Scripts
+ {
+    <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
+    <script src="https://code.jquery.com/ui/1.13.1/jquery-ui.js"></script>
+
+    <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
+    <script src="https://code.jquery.com/ui/1.13.1/jquery-ui.js"></script>
+
+
+    @*esta, esta la referencia a jquery porque nuestro proyecto ya tiene la libreria, de ahi la tomamos*@
+    <script src="~/lib/jquery/dist/jquery.js"></script>
+
+    @*las dos de abajo son la referencia para los estilos del datepicker, se sacan de la pagina de jquery ahi no hay detalle*@
+    <link rel="stylesheet" href="//code.jquery.com/ui/1.13.1/themes/base/jquery-ui.css">
+    <link rel="stylesheet" href="/resources/demos/style.css">
+    <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
+    <script src="https://code.jquery.com/ui/1.13.2/jquery-ui.js"></script>
+
+    <script>
+        function SoloLetras(e, controlId) {
+            var caracter = e.key;
+            if (!/^[a-zA-Z\s]*$/.test(caracter)) {
+                $('#' + controlId).text("Solo se aceptan Letras");
+                $('#' + controlId).css({ "color": "red" });
+                return false;
+            }
+            else {
+                $('#' + controlId).text("");
+                return true;
+            }
+        }
+    </script>
+
+    <script>
+        function SoloNumeros(e, controlId) {
+            var caracter = e.key;
+            if (!/^[0-9]*$/.test(caracter)) {
+                $('#' + controlId).text("Solo se aceptan Numeros");
+                $('#' + controlId).css({ "color": "red" });
+                return false;
+            }
+            else {
+                $('#' + controlId).text("");
+                return true;
+            }
+        }
+    </script>
+
+    <script>
+        $(document).ready(function () {
+            $("input[type='submit']").attr("disabled", true); /*Esto sirve para deshabilitar el boton en cuanto inicia el formulario*/
+            $('#txtPassword, #txtPasswordConfirmar').on('keyup', function () {
+                if ($('#txtPassword').val() != "" && $('#txtPasswordConfirmar').val() != "") {
+                    if ($('#txtPassword').val() == $('#txtPasswordConfirmar').val()) {
+                        $('#ldlPassword').html('Contraseña Valida').css('color', 'green');
+                        $("input[type='submit']").attr("disabled", false);
+                    } else {
+                        $('#ldlPassword').html('Las Contraseñas no coinciden').css('color', 'red');
+                        $("input[type='submit']").attr("disabled", true);
+                    }
+                } else {
+                    $('#ldlPassword').html('');
+                    $("input[type='submit']").attr("disabled", true);
+                }
+            });
+        });
+    </script>
+}

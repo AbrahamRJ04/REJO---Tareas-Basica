@@ -13,6 +13,6 @@ namespace Model_Layer
         public string Apellidos { get; set;}
         public int NumeroEmpleado { get; set; }
         public string Contraseña { get; set; }
-
+        public List<Object> Usuarios { get; set; }
     }
 }
